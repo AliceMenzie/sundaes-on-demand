@@ -1,13 +1,12 @@
 import './App.css';
-import Options from './pages/entry/Options';
+import OrderEntry from './pages/entry/OrderEntry';
 import SummaryForm from './pages/summary/SummaryForm';
 
 function App() {
   return (
     <div>
-      < Options optionType='scoops'  />
-      < Options optionType='toppings'  />
-      {/* < Options  /> */}
+      
+      <OrderEntry />
       < SummaryForm />
     </div>
   );
