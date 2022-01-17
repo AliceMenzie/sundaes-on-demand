@@ -6,6 +6,7 @@ function App() {
   return (
     <div>
       < Options optionType='scoops'  />
+      < Options optionType='toppings'  />
       {/* < Options  /> */}
       < SummaryForm />
     </div>
