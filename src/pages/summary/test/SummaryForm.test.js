@@ -1,4 +1,6 @@
-import { render, fireEvent, screen } from "@testing-library/react"
+// fireEvent
+import { render, screen } from "@testing-library/react"
+import userEvent from '@testing-library/user-event'
 import SummaryForm from '../SummaryForm';
 
 describe("checkbox enables and disables confirm order button", () => {
@@ -17,12 +19,14 @@ describe("checkbox enables and disables confirm order button", () => {
         const checkbox = screen.getByRole('checkbox')
         const btn = screen.getByRole('button', {name: 'Confirm order'})
 
-        fireEvent.click(checkbox)
+        // fireEvent.click(checkbox)
+        userEvent.click(checkbox)
 
         expect(btn).toBeEnabled()
 
         // unchecking checkbox disables confirm order button
-        fireEvent.click(checkbox)
+        // fireEvent.click(checkbox)
+        userEvent.click(checkbox)
         expect(btn).toBeDisabled()
     })
     
