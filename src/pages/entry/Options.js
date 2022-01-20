@@ -41,11 +41,11 @@ export default function Options({ optionType }) {
   ));
 
   return (
-    <>
+    <div style={{ marginTop: '3rem'}}>
       <h2>{title}</h2>
       <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>{title} total: {orderDetails.totals[optionType]}</p>
       <Row>{optionItems}</Row>
-    </>
+    </div>
   );
 }

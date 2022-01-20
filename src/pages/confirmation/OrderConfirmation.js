@@ -29,7 +29,7 @@ export default function OrderConfirmation({ setOrderPhase }) {
   //  if orderNumber is falsey
   if (orderNumber) {
     return (
-      <div>
+      <div style={{ textAlign: 'center', marginTop: '5rem' }}>
         <h1>Thank you!</h1>
         <p>Your order Number is { orderNumber } </p>
         <p style={{ fontSize: '45%' }}>as per our T&Cs, nothing will happen now</p>

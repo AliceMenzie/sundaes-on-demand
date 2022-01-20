@@ -5,7 +5,7 @@ import { useOrderDetails } from '../../contexts/OrderDetails';
 export default function OrderEntry({setOrderPhase}) {
     const [orderDetails] = useOrderDetails();
     return (
-        <div>
+        <div style={{ textAlign: 'center', marginTop: '5rem' }}>
             <h1>Design Your Sundae!</h1>
             < Options optionType='scoops'  />
             < Options optionType='toppings'  />

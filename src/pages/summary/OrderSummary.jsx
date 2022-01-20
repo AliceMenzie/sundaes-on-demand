@@ -27,7 +27,7 @@ export default function OrderSummary({ setOrderPhase }) {
     }
   
     return (
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', marginTop: '5rem' }}>
         <h1>Order Summary</h1>
         <h2>Scoops: {orderDetails.totals.scoops}</h2>
         <ul>{scoopList}</ul>
