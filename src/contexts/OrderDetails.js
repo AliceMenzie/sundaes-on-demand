@@ -64,11 +64,18 @@ export function OrderDetailsProvider(props) {
       setOptionCounts(newOptionCounts);
     }
 
+    function resetOrder(){
+      setOptionCounts({
+        scoops: new Map(),
+    toppings: new Map(),
+      })
+    }
+
     // GETTER: the value of our internal state which will be an
     // object containing the details (counts/how many) which have been ordered (scoops and toppings)
     // it will also contain the subtotals and totals
     // SETTER: update for the options counts
-    return [{ ...optionCounts, totals }, updateItemCount];
+    return [{ ...optionCounts, totals }, updateItemCount, resetOrder];
   }, [optionCounts, totals]);
 
   return <OrderDetails.Provider value={value} {...props} />;
