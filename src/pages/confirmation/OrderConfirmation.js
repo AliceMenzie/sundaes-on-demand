@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useOrderDetails } from "../../contexts/OrderDetails";
 
 export default function OrderConfirmation({ setOrderPhase }) {
-  const [orderNum, setOrderNum] = useState(null);
+  const [orderNumber, setOrderNumber] = useState(null);
   // below , , is ignoring the first two items and then destructing the third
   const [, , resetOrder] = useOrderDetails();
 
@@ -12,7 +12,7 @@ export default function OrderConfirmation({ setOrderPhase }) {
     axios
       .post(`http://localhost:3030/order`)
       .then((response) => {
-        setOrderNum(response.data.orderNumber);
+        setOrderNumber(response.data.orderNumber);
       })
       .catch((error) => {
         // TODO handle error
@@ -27,11 +27,11 @@ export default function OrderConfirmation({ setOrderPhase }) {
   }
 
   //  if orderNumber is falsey
-  if (orderNum) {
+  if (orderNumber) {
     return (
       <div>
-        <h1>Thanks you!</h1>
-        <p>Your order Number is { orderNum } </p>
+        <h1>Thank you!</h1>
+        <p>Your order Number is { orderNumber } </p>
         <p style={{ fontSize: '45%' }}>as per our T&Cs, nothing will happen now</p>
         <Button onClick={handleClick}>Create New Order</Button>
       </div>
