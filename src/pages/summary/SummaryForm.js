@@ -1,12 +1,17 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Popover from 'react-bootstrap/Popover'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-
-function SummaryForm() {
+function SummaryForm({ setOrderPhase }) {
   const [disabledBtn, setDisabledBtn] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    setOrderPhase('completed')
+  }
 
   const popover = (
     <Popover id="popover-basic">
@@ -16,17 +21,15 @@ function SummaryForm() {
 
   const checkboxLabel = (
     <span>
-        I agree to
+      I agree to
       <OverlayTrigger trigger="hover" placement="bottom" overlay={popover}>
-         <span style={{ color: "blue" }}>Terms and Conditions</span>
+        <span style={{ color: "blue" }}>Terms and Conditions</span>
       </OverlayTrigger>
     </span>
   );
 
-
-
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"
@@ -38,7 +41,10 @@ function SummaryForm() {
         />
       </Form.Group>
 
-      <Button type="submit" disabled={!disabledBtn}>
+      <Button
+        type="submit"
+        disabled={!disabledBtn}
+      >
         Confirm order
       </Button>
     </Form>
