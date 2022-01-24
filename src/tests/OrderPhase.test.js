@@ -69,3 +69,29 @@ test('Order Phases for Happy path', async () => {
     const resetTopping = await screen.findByText('Toppings total: $0.00')
     expect(resetTopping).toBeInTheDocument()
 })
+
+test('orderphase happy path no toppings ordered', async () => {
+    render(< App />)
+    // order 1 scoop flavour 
+    const chocScoop = await screen.findByRole('spinbutton', {name: 'Chocolate'})
+    userEvent.clear(chocScoop);
+    userEvent.type(chocScoop, "1");
+
+    // order 2 scoop flavour
+    const raspScoop = await screen.findByRole('spinbutton', {name: 'Raspberry'})
+    userEvent.clear(raspScoop)
+    userEvent.type(raspScoop, "2")
+
+    //  click button next phase 
+    const placeOrder = screen.getByRole('button', {name: 'Place Order'})
+    userEvent.click(placeOrder)
+
+    // check  scoop total 
+    const reviewScoop = await screen.findByText('Scoops: $', {exact: false})
+    expect(reviewScoop).toHaveTextContent("6.00");
+
+    //  check no topping 
+    const topping = screen.queryByText('Toppings: $', {exact: false})
+    expect(topping).not.toBeInTheDocument()
+     
+})
