@@ -41,6 +41,11 @@ test('Order Phases for Happy path', async () => {
     const confirmOrder = screen.getByRole('button', {name: /confirm order/i})
     userEvent.click(confirmOrder)
 
+    // Loading - 'Expect Loading to show'
+
+    const loading = screen.getByText(/loading/i)
+    expect(loading).toBeInTheDocument()
+
     // TODO:
     //  confirm order number on confirmation page 
     const orderNum = await screen.findByText(/order number/i)
@@ -48,8 +53,13 @@ test('Order Phases for Happy path', async () => {
     
     const confirmOrderHeader = await screen.findByRole('heading', {name: /thank you/i})
     expect(confirmOrderHeader).toBeInTheDocument()
-    // click new order on the confirmation page
 
+
+    // check loading is no longer on the page 
+    const removedLoading = screen.queryByText(/loading/i)
+    expect(removedLoading).not.toBeInTheDocument()
+
+    // click new order on the confirmation page
     const newOrder = screen.getByRole('button', {name: /create new order/i})
     userEvent.click(newOrder)
     // check that scoops and toppings subtotals have been reset 
