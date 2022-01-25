@@ -2,11 +2,12 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import { useOrderDetails } from "../../contexts/OrderDetails";
-
+import AlertBanner from "../common/AlertBanner";
 export default function OrderConfirmation({ setOrderPhase }) {
   const [orderNumber, setOrderNumber] = useState(null);
   // below , , is ignoring the first two items and then destructing the third
   const [, , resetOrder] = useOrderDetails();
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     axios
@@ -15,9 +16,13 @@ export default function OrderConfirmation({ setOrderPhase }) {
         setOrderNumber(response.data.orderNumber);
       })
       .catch((error) => {
-        // TODO handle error
+        setError(true)
       });
   }, []);
+
+  if(error){
+    return < AlertBanner />
+  }
 
   function handleClick() {
     // reset order is where the context comes in
