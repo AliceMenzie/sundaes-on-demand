@@ -1,4 +1,5 @@
 import { render, screen } from "../../../test-utils/testing-library-utils";
+import userEvent from '@testing-library/user-event'
 import Options from "../Options";
 
 
@@ -30,3 +31,19 @@ describe("testing the server responses", () => {
   });
 
 });
+
+test('the scoop subtotal doesn\'t up date with invalid input', async () => {
+  render(< Options optionType='scoops' />)
+
+  // enter invalid scoops 
+  const scoop = await screen.findByRole('spinbutton', {name: 'Chocolate'})
+  userEvent.clear(scoop)
+  userEvent.type(scoop, '12')
+  // check subtotal is $0.00
+  const scoopTotal = screen.getByText('Scoops total: $', {exact: false})
+  expect(scoopTotal).toHaveTextContent(0.00)
+  // OR
+  // const scoopTotal = screen.getByText('Scoops total: $0.00')
+  // expect(scoopTotal).toBeInTheDocument()
+
+} )
