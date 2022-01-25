@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "../../test-utils/testing-library-utils"
 import OrderEntry from "./OrderEntry";
 import { rest } from "msw";
 import { server } from "../../mocks/server";
+import userEvent from "@testing-library/user-event";
 
 describe("Alert banners on error", () => {
   test("handles errors for scoops and toppings routes", async () => {
@@ -31,3 +32,21 @@ describe("Alert banners on error", () => {
     
   });
 });
+
+test('place order button disabled/enabled on scoop count', async () => {
+  render (<OrderEntry setOrderPhase={jest.fn()} />)
+  // button is disabled
+  const btn = screen.getByRole('button', {name: /place order/i})
+  expect(btn).toBeDisabled()
+
+  // scoop ordered > button is enabled
+  const scoop = await screen.findByRole('spinbutton', {name: 'Chocolate'})
+  userEvent.clear(scoop)
+  userEvent.type(scoop, '1')
+  expect(btn).toBeEnabled()
+
+  // scoop removed > button is disbled
+  userEvent.clear(scoop)
+  userEvent.type(scoop, '0')
+  expect(btn).toBeDisabled()
+})
