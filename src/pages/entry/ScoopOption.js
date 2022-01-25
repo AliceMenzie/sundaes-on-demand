@@ -8,15 +8,19 @@ export default function ScoopOptions({ name, imagePath, updateItemCount }) {
 
   const handleChange = (e) => {
     const currentValue = e.target.value;
-    updateItemCount(name, currentValue);
-
+    
     const currentValueFloat = parseFloat(currentValue);
 
-    setIsValid(
+    const valueIsValid =
       0 <= currentValueFloat &&
-        currentValueFloat < 10 &&
-        Math.floor(currentValueFloat) === currentValueFloat
-    );
+      currentValueFloat <= 10 &&
+      Math.floor(currentValueFloat) === currentValueFloat;
+
+    setIsValid(valueIsValid);
+
+    // only update context if the value is valid
+    if (valueIsValid){ updateItemCount(name, currentValue)}
+    else {updateItemCount(name, '0.00')}
   };
 
   return (
@@ -39,7 +43,7 @@ export default function ScoopOptions({ name, imagePath, updateItemCount }) {
             type="number"
             defaultValue={0}
             onChange={handleChange}
-            isInvalid ={!isValid}
+            isInvalid={!isValid}
           />
         </Col>
       </Form.Group>
